@@ -200,6 +200,8 @@ if (!process.env.VERCEL) {
 	);
 } else if (!directDatabaseUrl) {
 	console.log("• no database URL at build time — skipping migrations");
+} else if (process.env.SKIP_DB_MIGRATIONS === "true") {
+	console.log("• SKIP_DB_MIGRATIONS=true — skipping migrations");
 } else {
 	const dbDir = join(repoRoot, "packages/db");
 	const dbEnv = { ...process.env, DATABASE_URL: directDatabaseUrl };
