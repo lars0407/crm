@@ -56,6 +56,11 @@ const appUrls = (optional("APP_URL") ?? DEFAULT_APP_URL)
 
 const appUrl = appUrls[0] ?? DEFAULT_APP_URL;
 
+const useSecureCookies =
+	process.env.AUTH_DISABLE_SECURE_COOKIES === "true"
+		? false
+		: process.env.NODE_ENV === "production";
+
 export const env = {
 	apiUrl,
 	appUrl,
@@ -65,6 +70,7 @@ export const env = {
 	cookieDomain: optional("AUTH_COOKIE_DOMAIN"),
 	trustedOrigins: [...new Set([...appUrls, apiUrl])],
 	isProduction: process.env.NODE_ENV === "production",
+	useSecureCookies,
 } as const;
 
 export function isGoogleConfigured(): boolean {
