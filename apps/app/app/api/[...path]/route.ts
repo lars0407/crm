@@ -23,6 +23,8 @@ async function handler(request: Request): Promise<Response> {
 	]) {
 		headers.delete(header);
 	}
+	headers.set("x-forwarded-host", url.host);
+	headers.set("x-forwarded-proto", url.protocol.replace(":", ""));
 
 	const init: RequestInit & { duplex?: "half" } = {
 		method: request.method,
