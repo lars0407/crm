@@ -48,9 +48,6 @@ export function LandingFooter() {
 					</p>
 
 					<nav className="flex items-center gap-4 text-[13px]/5 text-muted-foreground">
-						<Link href="/jobs" variant="quiet">
-							Jobs
-						</Link>
 						<Link href="/legal/impressum" variant="quiet">
 							Impressum
 						</Link>
