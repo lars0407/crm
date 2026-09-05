@@ -3,6 +3,7 @@ import { AgentSection } from "@/components/landing/agent-section";
 import { LandingAnalytics } from "@/components/landing/analytics";
 import { CapabilitiesSection } from "@/components/landing/capabilities-section";
 import { ClosingCta } from "@/components/landing/closing-cta";
+import { ContactBubble } from "@/components/landing/contact-bubble";
 import { Hero } from "@/components/landing/hero";
 import { LandingFooter } from "@/components/landing/landing-footer";
 import { LandingNav } from "@/components/landing/landing-nav";
@@ -25,6 +26,7 @@ export default function Home() {
 			<ClosingCta />
 			<LandingFooter />
 			<LandingAnalytics />
+			<ContactBubble />
 		</div>
 	);
 }
