@@ -45,9 +45,7 @@ export default function AGBPage() {
 				Technik. Er ist berechtigt, den Dienst weiterzuentwickeln und
 				anzupassen.
 			</p>
-			<p>
-				[Weitere Details zum Leistungsumfang eintragen]
-			</p>
+			<p>[Weitere Details zum Leistungsumfang eintragen]</p>
 
 			<h2>§ 3 Vertragsschluss</h2>
 			<p>
@@ -84,9 +82,7 @@ export default function AGBPage() {
 					den Dienst nicht missbräuchlich zu nutzen oder Dritten eine
 					missbräuchliche Nutzung zu ermöglichen;
 				</li>
-				<li>
-					keine rechtswidrigen Inhalte über den Dienst zu verbreiten;
-				</li>
+				<li>keine rechtswidrigen Inhalte über den Dienst zu verbreiten;</li>
 				<li>
 					den Anbieter unverzüglich zu informieren, wenn Anhaltspunkte für eine
 					missbräuchliche Nutzung seines Zugangs vorliegen.
@@ -99,15 +95,10 @@ export default function AGBPage() {
 				Vertragsschlusses gültigen Preisliste des Anbieters.
 			</p>
 			<p>
-				(2) Alle Preise verstehen sich zuzüglich der gesetzlichen
-				Umsatzsteuer.
+				(2) Alle Preise verstehen sich zuzüglich der gesetzlichen Umsatzsteuer.
 			</p>
-			<p>
-				(3) Die Rechnungsstellung erfolgt [monatlich / jährlich] im Voraus.
-			</p>
-			<p>
-				[Weitere Zahlungsdetails eintragen]
-			</p>
+			<p>(3) Die Rechnungsstellung erfolgt [monatlich / jährlich] im Voraus.</p>
+			<p>[Weitere Zahlungsdetails eintragen]</p>
 
 			<h2>§ 7 Verfügbarkeit</h2>
 			<p>
@@ -118,9 +109,7 @@ export default function AGBPage() {
 				(2) Als Ausfallzeiten gelten nicht: geplante Wartungsarbeiten,
 				Störungen, die auf höherer Gewalt oder auf Handlungen Dritter beruhen.
 			</p>
-			<p>
-				[Details zur garantierten Verfügbarkeit (SLA) eintragen]
-			</p>
+			<p>[Details zur garantierten Verfügbarkeit (SLA) eintragen]</p>
 
 			<h2>§ 8 Datenschutz und Datensicherheit</h2>
 			<p>
@@ -144,9 +133,7 @@ export default function AGBPage() {
 				wesentlicher Vertragspflichten. Die Haftung ist in diesen Fällen auf den
 				vertragstypischen, vorhersehbaren Schaden begrenzt.
 			</p>
-			<p>
-				(3) Die Haftung nach dem Produkthaftungsgesetz bleibt unberührt.
-			</p>
+			<p>(3) Die Haftung nach dem Produkthaftungsgesetz bleibt unberührt.</p>
 
 			<h2>§ 10 Vertragslaufzeit und Kündigung</h2>
 			<p>
@@ -158,19 +145,17 @@ export default function AGBPage() {
 				(2) Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt
 				unberührt.
 			</p>
-			<p>
-				(3) Die Kündigung bedarf der Textform (E-Mail genügt).
-			</p>
+			<p>(3) Die Kündigung bedarf der Textform (E-Mail genügt).</p>
 
 			<h2>§ 11 Änderungen der AGB</h2>
 			<p>
 				(1) Der Anbieter behält sich vor, diese AGB mit Wirkung für die Zukunft
-				zu ändern. Der Anbieter wird den Kunden über Änderungen mindestens
-				[4 Wochen] vor deren Inkrafttreten informieren.
+				zu ändern. Der Anbieter wird den Kunden über Änderungen mindestens [4
+				Wochen] vor deren Inkrafttreten informieren.
 			</p>
 			<p>
-				(2) Widerspricht der Kunde nicht innerhalb von [4 Wochen] nach
-				Zugang der Änderungsmitteilung, gelten die Änderungen als genehmigt.
+				(2) Widerspricht der Kunde nicht innerhalb von [4 Wochen] nach Zugang
+				der Änderungsmitteilung, gelten die Änderungen als genehmigt.
 			</p>
 
 			<h2>§ 12 Schlussbestimmungen</h2>
@@ -188,9 +173,7 @@ export default function AGBPage() {
 				bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
 			</p>
 
-			<p className="mt-8 text-muted-foreground">
-				Stand: [Datum eintragen]
-			</p>
+			<p className="mt-8 text-muted-foreground">Stand: [Datum eintragen]</p>
 		</article>
 	);
 }

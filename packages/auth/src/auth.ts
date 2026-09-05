@@ -72,10 +72,7 @@ if (env.microsoft) {
 export const auth = betterAuth({
 	appName: "CRM",
 	baseURL: {
-		allowedHosts: [
-			new URL(env.apiUrl).host,
-			new URL(env.appUrl).host,
-		],
+		allowedHosts: [new URL(env.apiUrl).host, new URL(env.appUrl).host],
 		protocol: "https",
 	},
 	trustedProxyHeaders: true,

@@ -69,9 +69,7 @@ export default function DatenschutzPage() {
 			</p>
 
 			<h2>2. Hosting</h2>
-			<p>
-				Wir hosten die Inhalte unserer Website bei folgendem Anbieter:
-			</p>
+			<p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
 
 			<h3>[Hosting-Anbieter eintragen]</h3>
 			<p>
@@ -164,9 +162,7 @@ export default function DatenschutzPage() {
 				(Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät
 				gespeichert.
 			</p>
-			<p>
-				[Weitere Details zu verwendeten Cookies eintragen]
-			</p>
+			<p>[Weitere Details zu verwendeten Cookies eintragen]</p>
 
 			<h3>Server-Log-Dateien</h3>
 			<p>
@@ -198,9 +194,7 @@ export default function DatenschutzPage() {
 			</p>
 
 			<h2>6. Newsletter</h2>
-			<p>
-				[Falls ein Newsletter angeboten wird, Details hier eintragen]
-			</p>
+			<p>[Falls ein Newsletter angeboten wird, Details hier eintragen]</p>
 
 			<h2>7. Plugins und Tools</h2>
 			<p>
@@ -209,9 +203,7 @@ export default function DatenschutzPage() {
 			</p>
 
 			<h2>8. eCommerce und Zahlungsanbieter</h2>
-			<p>
-				[Falls zutreffend, Details zu Zahlungsanbietern eintragen]
-			</p>
+			<p>[Falls zutreffend, Details zu Zahlungsanbietern eintragen]</p>
 		</article>
 	);
 }

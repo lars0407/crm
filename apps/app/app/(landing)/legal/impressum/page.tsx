@@ -71,9 +71,7 @@ export default function ImpressumPage() {
 				Unsere E-Mail-Adresse finden Sie oben im Impressum.
 			</p>
 
-			<h2>
-				Verbraucherstreitbeilegung / Universalschlichtungsstelle
-			</h2>
+			<h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
 			<p>
 				Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren
 				vor einer Verbraucherschlichtungsstelle teilzunehmen.
