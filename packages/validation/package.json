@@ -14,6 +14,7 @@
 		"./eve-tool": "./src/eve-tool.ts",
 		"./field-backfill": "./src/field-backfill.ts",
 		"./field-templates": "./src/field-templates.ts",
+		"./google-maps-search": "./src/google-maps-search.ts",
 		"./saved-view": "./src/saved-view.ts"
 	},
 	"scripts": {

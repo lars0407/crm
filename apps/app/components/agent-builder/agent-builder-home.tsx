@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { CompanyFinderCard } from "@/components/company-finder/company-finder-dialog";
 import { useTRPC } from "@/lib/trpc/client";
 import { useWorkspaceUrl } from "@/lib/use-workspace-url";
 import { AgentComposer, type BuilderComposerPrompt } from "./agent-composer";
@@ -88,6 +89,12 @@ export function AgentBuilderHome({ name }: { name: string }) {
 							/>
 						</button>
 					))}
+					<div className="border-t pt-3">
+						<p className="flex h-7 items-center text-muted-foreground text-xs">
+							Suggested applications
+						</p>
+						<CompanyFinderCard />
+					</div>
 				</div>
 			</div>
 		</main>

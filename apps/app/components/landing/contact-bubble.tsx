@@ -1,20 +1,19 @@
 "use client";
 
+import Calendar from "@carbon/icons-react/es/Calendar";
+import Chat from "@carbon/icons-react/es/Chat";
+import Close from "@carbon/icons-react/es/Close";
+import Email from "@carbon/icons-react/es/Email";
+import LogoLinkedin from "@carbon/icons-react/es/LogoLinkedin";
+import Phone from "@carbon/icons-react/es/Phone";
 import { Button } from "@crm/ui/components/button";
+import { Icon } from "@crm/ui/components/icon";
 import { Link } from "@crm/ui/components/link";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@crm/ui/components/popover";
-import {
-	CalendarIcon,
-	LinkedinIcon,
-	MailIcon,
-	MessageCircleIcon,
-	PhoneIcon,
-	XIcon,
-} from "lucide-react";
 import { useState } from "react";
 
 type ContactInfo = {
@@ -49,9 +48,9 @@ export function ContactBubble() {
 						aria-label="Kontakt öffnen"
 					>
 						{open ? (
-							<XIcon className="size-6" />
+							<Icon icon={Close} className="size-6" />
 						) : (
-							<MessageCircleIcon className="size-6" />
+							<Icon icon={Chat} className="size-6" />
 						)}
 					</Button>
 				</PopoverTrigger>
@@ -101,7 +100,10 @@ export function ContactBubble() {
 										variant="quiet"
 										className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-muted transition-colors"
 									>
-										<MailIcon className="size-4 text-muted-foreground" />
+										<Icon
+											icon={Email}
+											className="size-4 text-muted-foreground"
+										/>
 										<span className="truncate">{CONTACT.email}</span>
 									</Link>
 								)}
@@ -112,7 +114,10 @@ export function ContactBubble() {
 										variant="quiet"
 										className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-muted transition-colors"
 									>
-										<PhoneIcon className="size-4 text-muted-foreground" />
+										<Icon
+											icon={Phone}
+											className="size-4 text-muted-foreground"
+										/>
 										<span>{CONTACT.phone}</span>
 									</Link>
 								)}
@@ -125,7 +130,10 @@ export function ContactBubble() {
 										variant="quiet"
 										className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-muted transition-colors"
 									>
-										<LinkedinIcon className="size-4 text-muted-foreground" />
+										<Icon
+											icon={LogoLinkedin}
+											className="size-4 text-muted-foreground"
+										/>
 										<span>LinkedIn Profil</span>
 									</Link>
 								)}
@@ -139,7 +147,7 @@ export function ContactBubble() {
 											target="_blank"
 											rel="noopener noreferrer"
 										>
-											<CalendarIcon className="size-4 mr-2" />
+											<Icon icon={Calendar} className="size-4" />
 											Termin vereinbaren
 										</Link>
 									</Button>
