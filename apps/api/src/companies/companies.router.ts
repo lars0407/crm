@@ -28,6 +28,8 @@ import {
 	companySetPrimaryContactOutput,
 	companySummaryOutput,
 	companyUpdateArgs,
+	mapsImportInput,
+	mapsImportResult,
 	setPrimaryContactInput,
 } from "./companies.contracts";
 import { CompaniesService } from "./companies.service";
@@ -73,6 +75,15 @@ export class CompaniesRouter {
 	})
 	async create(@Input() input: z.infer<typeof companyCreateInput>) {
 		return this.companies.create(input);
+	}
+
+	@Mutation({
+		input: mapsImportInput,
+		output: mapsImportResult,
+		meta: restMeta("POST", "/companies/import-from-maps", ["Companies"]),
+	})
+	async importFromMaps(@Input() input: z.infer<typeof mapsImportInput>) {
+		return this.companies.importFromMaps(input);
 	}
 
 	@Mutation({

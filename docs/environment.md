@@ -118,8 +118,9 @@ single place that knows what is set.
 | `AGENT_BRIDGE_SECRET` | The rep-facing Agent panel — see `agent.md` |
 
 **`RAPIDAPI_KEY`** is for the Next.js app, not the agent. It powers “Find companies
-on Google Maps” on the chat page. The search never writes a company row. Without it
-the results page says the search is unavailable. Declare it in `globalPassThroughEnv`
+on Google Maps” on the chat page. The search itself does not write a company row.
+A rep can add unique matches to the CRM from the results. Without the key the
+results page says the search is unavailable. Declare it in `globalPassThroughEnv`
 and in `apps/app/turbo.json`.
 
 `BLOB_READ_WRITE_TOKEN` is also in `env.validation.ts` and `apps/api/turbo.json`

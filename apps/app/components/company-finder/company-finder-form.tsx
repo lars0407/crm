@@ -234,7 +234,8 @@ export function CompanyFinderForm({
 					<div>
 						<FieldLabel>E-Mails und Kontakte laden</FieldLabel>
 						<FieldDescription>
-							Kostet extra Credits. Die Treffer landen nicht in der Datenbank.
+							Kostet extra Credits. Du fügst Treffer danach selbst zur CRM
+							hinzu.
 						</FieldDescription>
 					</div>
 				</Field>

@@ -298,13 +298,14 @@ model Company {
   country     String?
   countryCode String?
 
-  phone       String?
-  email       String?
-  linkedinUrl String?
-  twitterUrl  String?
-  githubUrl   String?
-  pricingUrl  String?
-  careersUrl  String?
+  phone            String?
+  email            String?
+  linkedinUrl      String?
+  twitterUrl       String?
+  githubUrl        String?
+  pricingUrl       String?
+  careersUrl       String?
+  googleBusinessId String?
 
   ownerId          String?
   owner            User?    @relation("CompanyOwner", fields: [ownerId], references: [id], onDelete: SetNull)
@@ -332,6 +333,7 @@ model Company {
   updatedAt      DateTime            @updatedAt
 
   @@unique([domain], map: "company_domain_active_key", where: { archivedAt: null })
+  @@unique([googleBusinessId], map: "company_google_business_active_key", where: { archivedAt: null })
   @@index([ownerId])
   @@index([name])
   @@index([lastActivityAt])

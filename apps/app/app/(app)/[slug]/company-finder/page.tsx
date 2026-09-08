@@ -74,7 +74,8 @@ async function CompanyFinder({
 							Zurück zum Chat
 						</Link>
 						{" · "}
-						Treffer werden nicht gespeichert.
+						Treffer bleiben auf dem Bildschirm. Du kannst sie in die CRM
+						übernehmen.
 					</PageShellDescription>
 				</PageShellHeading>
 				<PageShellActions>

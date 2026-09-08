@@ -37,8 +37,8 @@ export function CompanyFinderDialog({
 				<DialogHeader>
 					<DialogTitle>Unternehmen auf Google Maps finden</DialogTitle>
 					<DialogDescription>
-						Die Treffer bleiben auf dem Bildschirm. Nichts wird in die CRM
-						geschrieben.
+						Die Treffer bleiben auf dem Bildschirm. Du kannst einzelne oder alle
+						in die CRM schreiben.
 					</DialogDescription>
 				</DialogHeader>
 				<CompanyFinderForm

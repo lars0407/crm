@@ -1,9 +1,16 @@
 import { DealStage, EnrichmentStatus, RecordSource } from "@crm/db";
 import { FIELD_TYPES } from "@crm/db/fields";
+import {
+	mapsImportInput as mapsImportInputSchema,
+	mapsImportResult as mapsImportResultSchema,
+} from "@crm/validation/maps-import";
 import { z } from "zod";
 import { bulkIdsInput } from "../crm/bulk";
 import { fieldEntity, recordFieldValues } from "../fields/fields.contracts";
 import { activityFacetInput, listInput } from "../trpc/list-input";
+
+export const mapsImportInput = mapsImportInputSchema;
+export const mapsImportResult = mapsImportResultSchema;
 
 export const companyListInput = listInput.extend({
 	owner: z.array(z.string()).default([]),
