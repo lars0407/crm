@@ -22,7 +22,9 @@ export function CompanyFinderResults({
 	const [selectedId, setSelectedId] = useState<string | null>(
 		businesses[0]?.id ?? null,
 	);
-	const flyToRef = useRef<((lat: number, lng: number) => void) | null>(null);
+	const flyToRef = useRef<
+		((lat: number, lng: number, id: string) => void) | null
+	>(null);
 	const mapped = businesses.filter(
 		(business) => business.lat !== null && business.lng !== null,
 	);
@@ -31,7 +33,7 @@ export function CompanyFinderResults({
 		setSelectedId(id);
 		const business = businesses.find((item) => item.id === id);
 		if (business?.lat !== null && business?.lng !== null && business) {
-			flyToRef.current?.(business.lat, business.lng);
+			flyToRef.current?.(business.lat, business.lng, id);
 		}
 	};
 

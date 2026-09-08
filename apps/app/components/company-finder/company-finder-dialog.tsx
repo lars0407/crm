@@ -63,7 +63,7 @@ export function CompanyFinderCard() {
 					className="flex w-full flex-col gap-2 rounded-lg border border-border bg-card p-3 text-left outline-none transition-colors hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring/60"
 				>
 					<div className="flex items-start gap-2">
-						<span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-[#34A853] text-white">
+						<span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
 							<svg
 								aria-hidden="true"
 								viewBox="0 0 24 24"

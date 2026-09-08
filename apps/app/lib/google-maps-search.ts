@@ -4,6 +4,7 @@ import {
 	type FoundBusiness,
 	type GoogleMapsSearchInput,
 	parseGoogleMapsSearch,
+	UnreadableSearchResponse,
 } from "@crm/validation/google-maps-search";
 import { GOOGLE_MAPS_SEARCH } from "@/lib/google-maps-config";
 
@@ -64,10 +65,18 @@ export async function searchBusinesses(
 			businesses: parseGoogleMapsSearch(await response.json()),
 		};
 	} catch (error) {
+		if (error instanceof UnreadableSearchResponse) {
+			return {
+				outcome: "failed",
+				reason: "Die Suchantwort ist unlesbar.",
+			};
+		}
+
 		if (error instanceof Error && error.name === "TimeoutError") {
 			return {
 				outcome: "failed",
-				reason: "The search took too long. Narrow it down and try again.",
+				reason:
+					"Die Suche dauert zu lange. Grenze sie ein und versuche es erneut.",
 			};
 		}
 
@@ -80,12 +89,12 @@ export async function searchBusinesses(
 
 function describeStatus(status: number): string {
 	if (status === 401 || status === 403) {
-		return "RapidAPI refused the key. Check RAPIDAPI_KEY and the Local Business Data subscription.";
+		return "RapidAPI hat den Schlüssel abgelehnt. Prüfe RAPIDAPI_KEY und das Local-Business-Data-Abo.";
 	}
 
 	if (status === 429) {
-		return "The RapidAPI plan is out of requests for now.";
+		return "Das RapidAPI-Kontingent ist aufgebraucht.";
 	}
 
-	return `The search provider answered ${status}.`;
+	return `Der Suchanbieter antwortet mit ${status}.`;
 }

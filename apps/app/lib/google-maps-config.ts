@@ -11,4 +11,9 @@ export const GOOGLE_MAPS_SEARCH = {
 		fallbackZoom: 5,
 		focusZoom: 15,
 	},
+	marker: {
+		fill: "#006B4F",
+		selected: { radius: 10, weight: 3, color: "#006B4F" },
+		idle: { radius: 8, weight: 2, color: "#ffffff" },
+	},
 } as const;
