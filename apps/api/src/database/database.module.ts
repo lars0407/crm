@@ -1,4 +1,5 @@
 import { type Db, db } from "@crm/db";
+import { ensureCompanyGoogleBusinessColumn } from "@crm/db/schema-ensure";
 import {
 	Global,
 	Logger,
@@ -21,7 +22,6 @@ export class DatabaseModule implements OnModuleInit, OnApplicationShutdown {
 	async onModuleInit(): Promise<void> {
 		try {
 			await this.db.$connect();
-			this.logger.log({ message: "Database connected" });
 		} catch (error) {
 			this.logger.fatal(
 				{ message: "Database connection failed" },
@@ -29,6 +29,17 @@ export class DatabaseModule implements OnModuleInit, OnApplicationShutdown {
 			);
 			throw error;
 		}
+
+		try {
+			await ensureCompanyGoogleBusinessColumn(this.db);
+		} catch (error) {
+			this.logger.error(
+				{ message: "Could not add company.googleBusinessId" },
+				error instanceof Error ? error.stack : String(error),
+			);
+		}
+
+		this.logger.log({ message: "Database connected" });
 	}
 
 	async onApplicationShutdown(signal?: string): Promise<void> {

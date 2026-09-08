@@ -100,10 +100,12 @@ the live database. On 2026-08-01 eleven migrations landed on Neon from a laptop.
 
 ## Migrations run on the production deploy, and nowhere else
 
-`apps/api/scripts/build-func.mjs` runs `prisma migrate deploy` during the crm-api
-build, gated on `VERCEL_ENV === "production"`. The schema therefore moves when the
-release pull request merges and `release` deploys — with the code that needs it,
-and once rather than once per branch.
+`packages/db/scripts/apply-production-migrations.mjs` runs `prisma migrate deploy`
+during the crm-api build, gated on `VERCEL_ENV === "production"`. The schema
+therefore moves when `release` deploys — with the code that needs it, and once
+rather than once per branch. The API also adds `company.googleBusinessId` on boot
+when that column is missing, so a skipped production migrate does not block Maps
+import.
 
 Preview deploys share the production database: `DATABASE_URL` is a single value
 across production, preview and development. Until that changes, **a preview of a
