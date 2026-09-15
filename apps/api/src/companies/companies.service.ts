@@ -874,7 +874,17 @@ export class CompaniesService {
 			return created;
 		});
 
-		await this.agent.companyCreated(company.id);
+		try {
+			await this.agent.companyCreated(company.id);
+		} catch (error) {
+			this.logger.error(
+				{
+					message: "Could not queue research for Maps import",
+					companyId: company.id,
+				},
+				error instanceof Error ? error.stack : String(error),
+			);
+		}
 		void this.favicon.backfill(company.id, company.domain);
 		void this.fields.queueBackfillForNewRecord("COMPANY", company.id);
 

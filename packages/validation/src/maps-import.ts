@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { type FoundBusiness, SEARCH_LIMITS } from "./google-maps-search";
 
-const text = z.string().trim().min(1).max(2000).nullable();
+const text = optionalText(2000);
 
 export const mapsImportBusiness = z.object({
 	id: z.string().trim().min(1).max(200),
@@ -12,7 +12,7 @@ export const mapsImportBusiness = z.object({
 	phone: text,
 	website: text,
 	domain: text,
-	email: z.string().trim().max(320).nullable(),
+	email: optionalText(320),
 	linkedin: text,
 	category: text,
 	mapsUrl: text,
@@ -119,6 +119,16 @@ export function isMapsDuplicate(left: MapsImportKey, right: MapsImportKey) {
 	}
 
 	return false;
+}
+
+function optionalText(max: number) {
+	return z.preprocess((value) => {
+		if (value === null || value === undefined) return null;
+		if (typeof value !== "string") return value;
+		const trimmed = value.trim();
+		if (trimmed.length === 0) return null;
+		return trimmed.length > max ? trimmed.slice(0, max) : trimmed;
+	}, z.string().max(max).nullable());
 }
 
 function normalizeName(value: string) {

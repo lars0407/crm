@@ -1,8 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import {
 	isMapsDuplicate,
+	mapsImportBusiness,
 	mapsImportInput,
 	mapsImportKey,
+	toMapsImportBusiness,
 } from "../src/maps-import";
 
 function key(partial: Partial<Parameters<typeof mapsImportKey>[0]> = {}) {
@@ -19,6 +21,54 @@ function key(partial: Partial<Parameters<typeof mapsImportKey>[0]> = {}) {
 describe("mapsImportInput", () => {
 	it("refuses an empty batch", () => {
 		expect(mapsImportInput.safeParse({ businesses: [] }).success).toBe(false);
+	});
+
+	it("turns blank optional fields into null", () => {
+		const parsed = mapsImportBusiness.parse({
+			id: "biz-1",
+			name: "Park Inn Berlin",
+			address: "  ",
+			city: "",
+			country: null,
+			phone: null,
+			website: null,
+			domain: null,
+			email: "   ",
+			linkedin: null,
+			category: null,
+			mapsUrl: null,
+		});
+
+		expect(parsed.address).toBeNull();
+		expect(parsed.city).toBeNull();
+		expect(parsed.email).toBeNull();
+	});
+
+	it("accepts a Maps result with blank city for import", () => {
+		const business = toMapsImportBusiness({
+			id: "biz-blank-city",
+			name: "Café Mitte",
+			address: null,
+			city: "",
+			country: "DE",
+			phone: null,
+			website: null,
+			domain: null,
+			email: null,
+			linkedin: null,
+			rating: null,
+			reviewCount: null,
+			verified: false,
+			status: null,
+			category: "Café",
+			photoUrl: null,
+			mapsUrl: null,
+			lat: 52.5,
+			lng: 13.4,
+		});
+
+		expect(business.city).toBeNull();
+		expect(business.country).toBe("DE");
 	});
 });
 

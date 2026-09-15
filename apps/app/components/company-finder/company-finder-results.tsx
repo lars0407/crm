@@ -72,7 +72,11 @@ export function CompanyFinderResults({
 
 	const importBusinesses = (rows: FoundBusiness[]) => {
 		if (rows.length === 0 || importMaps.isPending) return;
-		importMaps.mutate({ businesses: rows.map(toMapsImportBusiness) });
+		try {
+			importMaps.mutate({ businesses: rows.map(toMapsImportBusiness) });
+		} catch {
+			toast.error("Diese Treffer lassen sich nicht hinzufügen.");
+		}
 	};
 
 	return (
