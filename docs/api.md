@@ -67,13 +67,17 @@ here, what do we sell.
 
 ### Gates in `proxy.ts`
 
-Onboarding, then `/onboarding/research` for the Context key. Asked server-side every
-request.
+Onboarding, then `/onboarding/research` for the Context key. Asked server-side on
+navigation.
 
 - **`getSessionCookie()` decides signed-in**; pages still resolve the real session via
   `requireMailboxAccess()`.
 - **Nothing is cached in a cookie** — both facts revert on a database reset while a
-  year-long marker insists the gate passed. Cache in the API if cost ever matters.
+  year-long marker insists the gate passed.
+- **Settled answers live in process memory for 30s** (`ONBOARDING_GATE.cache.ttlMs`),
+  keyed by the request cookie. `required` and `unknown` never enter the cache, so a
+  reset still redirects on the next miss. Tunables live in
+  `apps/app/lib/onboarding-gate-config.ts`.
 - **Both reads run concurrently**, but order decides which is *asked* — the research
   read is never made while onboarding is open.
 - **An unreachable API fails open** (`unknown` lets the request through).

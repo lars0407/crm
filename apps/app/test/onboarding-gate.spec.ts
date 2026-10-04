@@ -1,7 +1,11 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import { AUTH_COOKIE_PREFIX } from "@crm/auth/cookies";
 import { NextRequest } from "next/server";
-import { readResearchGate, readWorkspaceGate } from "../lib/onboarding";
+import {
+	clearOnboardingGateCache,
+	readResearchGate,
+	readWorkspaceGate,
+} from "../lib/onboarding";
 import { proxy } from "../proxy";
 
 const SESSION_COOKIE = `${AUTH_COOKIE_PREFIX}.session_token=abc.def`;
@@ -15,6 +19,7 @@ const realMarketing = process.env.IS_MARKETING;
 afterEach(() => {
 	globalThis.fetch = realFetch;
 	marketing(realMarketing);
+	clearOnboardingGateCache();
 });
 
 function marketing(value: string | undefined) {
@@ -133,14 +138,14 @@ describe("readWorkspaceGate", () => {
 
 describe("readResearchGate", () => {
 	it("is settled once a key is saved, and required until then", async () => {
-		answerWith(researchKey(true));
-		expect(await readResearchGate(request("/", [SESSION_COOKIE]))).toBe(
-			"settled",
-		);
-
 		answerWith(researchKey(false));
 		expect(await readResearchGate(request("/", [SESSION_COOKIE]))).toBe(
 			"required",
+		);
+
+		answerWith(researchKey(true));
+		expect(await readResearchGate(request("/", [SESSION_COOKIE]))).toBe(
+			"settled",
 		);
 	});
 
@@ -231,7 +236,7 @@ describe("proxy", () => {
 		).toBeNull();
 	});
 
-	it("asks again on every request, and remembers nothing", async () => {
+	it("writes no cookie, and reuses a settled answer inside the TTL", async () => {
 		const calls = setup();
 
 		const first = await proxy(request(`/${SLUG}/companies`, [SESSION_COOKIE]));
@@ -241,10 +246,25 @@ describe("proxy", () => {
 
 		await proxy(request(`/${SLUG}/companies`, [SESSION_COOKIE]));
 
+		expect(calls).toEqual({ workspace: 1, research: 1 });
+	});
+
+	it("never caches a required answer, so a reset still redirects", async () => {
+		const calls = setup({ onboarded: false, configured: false });
+
+		expect(
+			redirectedTo(
+				await proxy(request(`/${SLUG}/companies`, [SESSION_COOKIE])),
+			),
+		).toBe("/onboarding");
+		expect(calls).toEqual({ workspace: 1, research: 1 });
+
+		await proxy(request(`/${SLUG}/companies`, [SESSION_COOKIE]));
+
 		expect(calls).toEqual({ workspace: 2, research: 2 });
 	});
 
-	it("notices when the answer changes underneath it", async () => {
+	it("notices when the answer changes after the cache is cleared", async () => {
 		setup();
 		expect(
 			redirectedTo(
@@ -252,8 +272,7 @@ describe("proxy", () => {
 			),
 		).toBeNull();
 
-		// A reset database, a removed key: the browser is carrying nothing that
-		// could keep saying the gate was satisfied.
+		clearOnboardingGateCache();
 		setup({ onboarded: false });
 		expect(
 			redirectedTo(

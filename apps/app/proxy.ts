@@ -37,8 +37,6 @@ export async function proxy(request: NextRequest) {
 
 	if (isUngated(pathname)) return NextResponse.next();
 
-	// Both answers, every time, and concurrently — so the gate costs one round
-	// trip rather than two, and neither answer can be stale.
 	const [workspace, research] = await Promise.all([
 		readWorkspaceGate(request),
 		readResearchGate(request),
