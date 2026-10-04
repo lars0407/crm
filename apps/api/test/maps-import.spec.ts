@@ -19,6 +19,8 @@ const agent = {
 	companyCreated: async () => undefined,
 	withCrmEvents: withDiscardedCrmEvents,
 	companyRequested: async () => true,
+	backfill: async () => ({ queued: 0, alreadyQueued: 0 }),
+	fieldBackfillRecords: async () => ({ queued: 0, merged: 0 }),
 } as unknown as AgentTriggerService;
 
 const companies = new CompaniesService(

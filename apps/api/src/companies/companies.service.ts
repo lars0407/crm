@@ -55,6 +55,7 @@ import type {
 } from "./companies.contracts";
 import { normalizeDomain } from "./domain";
 import { FaviconService } from "./favicon.service";
+import { MAPS_IMPORT } from "./maps-import-config";
 
 const OWNER_SELECT = {
 	id: true,
@@ -331,6 +332,7 @@ export class CompaniesService {
 		const added: MapsImportResult["added"] = [];
 		const skipped: MapsImportResult["skipped"] = [];
 		const seen: Array<{ key: MapsImportKey; companyId: string | null }> = [];
+		const createdIds: string[] = [];
 
 		const existing = await this.existingMapsMatches(input.businesses);
 
@@ -361,6 +363,7 @@ export class CompaniesService {
 			try {
 				const company = await this.insertImportedCompany(business, domain);
 				seen.push({ key, companyId: company.id });
+				createdIds.push(company.id);
 				added.push({
 					mapsId: business.id,
 					companyId: company.id,
@@ -377,6 +380,8 @@ export class CompaniesService {
 				});
 			}
 		}
+
+		await this.queueMapsImportFollowUp(createdIds);
 
 		this.logger.log({
 			message: "Companies imported from Google Maps",
@@ -874,21 +879,46 @@ export class CompaniesService {
 			return created;
 		});
 
-		try {
-			await this.agent.companyCreated(company.id);
-		} catch (error) {
-			this.logger.error(
-				{
-					message: "Could not queue research for Maps import",
-					companyId: company.id,
-				},
-				error instanceof Error ? error.stack : String(error),
-			);
-		}
 		void this.favicon.backfill(company.id, company.domain);
-		void this.fields.queueBackfillForNewRecord("COMPANY", company.id);
 
 		return company;
+	}
+
+	private async queueMapsImportFollowUp(companyIds: string[]) {
+		if (companyIds.length === 0) return;
+
+		const { brand, companyProfile } = MAPS_IMPORT.research;
+
+		await Promise.all([
+			this.agent.backfill({
+				kind: brand.kind,
+				reason: brand.reason,
+				companyIds,
+				budget: brand.budget,
+				priority: brand.priority,
+			}),
+			this.agent.backfill({
+				kind: companyProfile.kind,
+				reason: companyProfile.reason,
+				companyIds,
+				budget: companyProfile.budget,
+				priority: companyProfile.priority,
+			}),
+		]);
+
+		const definitions = await this.db.fieldDefinition.findMany({
+			where: { entity: "COMPANY", archivedAt: null, agentFilled: true },
+			select: { key: true },
+		});
+
+		if (definitions.length === 0) return;
+
+		await this.agent.fieldBackfillRecords(
+			"COMPANY",
+			definitions.map((definition) => definition.key),
+			companyIds,
+			"New record",
+		);
 	}
 
 	private translate(cause: unknown, id: string): never {

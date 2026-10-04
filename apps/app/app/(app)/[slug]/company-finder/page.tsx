@@ -95,7 +95,9 @@ async function CompanyFinder({
 						</EmptyHeader>
 					</Empty>
 				) : (
-					<SearchResults input={parsed.data} query={values.query} />
+					<Suspense fallback={<PageShellLoading />}>
+						<SearchResults input={parsed.data} query={values.query} />
+					</Suspense>
 				)}
 			</PageShellContent>
 		</>

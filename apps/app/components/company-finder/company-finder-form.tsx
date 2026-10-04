@@ -234,8 +234,8 @@ export function CompanyFinderForm({
 					<div>
 						<FieldLabel>E-Mails und Kontakte laden</FieldLabel>
 						<FieldDescription>
-							Kostet extra Credits. Du fügst Treffer danach selbst zur CRM
-							hinzu.
+							Scrapt jede Website. Die Suche dauert länger und kostet extra
+							Credits.
 						</FieldDescription>
 					</div>
 				</Field>
