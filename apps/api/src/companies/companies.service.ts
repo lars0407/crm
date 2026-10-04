@@ -381,7 +381,17 @@ export class CompaniesService {
 			}
 		}
 
-		await this.queueMapsImportFollowUp(createdIds);
+		try {
+			await this.queueMapsImportFollowUp(createdIds);
+		} catch (error) {
+			this.logger.error(
+				{
+					message: "Could not queue research for Maps import",
+					companyIds: createdIds,
+				},
+				error instanceof Error ? error.stack : String(error),
+			);
+		}
 
 		this.logger.log({
 			message: "Companies imported from Google Maps",
